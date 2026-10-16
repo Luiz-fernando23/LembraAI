@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block titulo %}Lembretes — LembraAI{% endblock %}
+{% block conteudo %}
+<h1 class="titulo-grande" style="font-size:2.1rem;">Na hora do carinho</h1>
+<p class="sub">Do seu jeito, sem exageros. Escolha como o Lembra aparece por aí.</p>
+
+<div class="status-ok">
+  <img src="{{ url_for('static', filename='img/lembretes/bell-ring.svg') }}" alt="">
+  <div>
+    <strong>Notificações ativadas</strong><br>
+    <span>Tudo pronto para lembrar você.</span>
+  </div>
+</div>
+
+{% if salvo %}
+<p class="aviso-mvp" role="status">Preferências salvas.</p>
+{% endif %}
+{% if erro %}
+<p class="erro" role="alert">{{ erro }}</p>
+{% endif %}
+
+<form method="post" action="{{ url_for('lembretes') }}">
+  <h2 style="font-size:1.05rem;">Um tempinho para se preparar</h2>
+  <div class="chips" style="margin-bottom: 6px;">
+    {% for a in antecedencias %}
+    <label class="chip">
+      <input type="radio" name="antecedencia" value="{{ a }}" {% if prefs.antecedencia_padrao == a %}checked{% endif %}>
+      <span>{{ a }}</span>
+    </label>
+    {% endfor %}
+  </div>
+  <p class="dica">Padrão para novos aniversários. Você pode mudar para cada pessoa.</p>
+
+  <div class="cartao" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+    <div>
+      <strong style="display:block; font-size:0.9rem;">Hora de lembrar</strong>
+      <span class="detalhe-linha">Horário local do seu celular</span>
+    </div>
+    <input type="time" name="hora" value="{{ prefs.hora }}" required aria-label="Hora de lembrar"
+           style="border:0; font-family: var(--fonte-titulo); font-size:1.6rem; color: var(--primario); background:transparent; width:auto;">
+  </div>
+
+  <h2 style="font-size:1.05rem; margin-top:18px;">Como vamos lembrar</h2>
+  <div class="toggle-linha">
+    <div class="texto">
+      <strong>Receber notificações</strong>
+      <span>Um aviso no celular, mesmo com o app fechado.</span>
+    </div>
+    <label class="interruptor">
+      <input type="checkbox" name="avisar" {% if prefs.avisar %}checked{% endif %}>
+      <span class="trilho"></span>
+    </label>
+  </div>
+  <div class="toggle-linha">
+    <div class="texto">
+      <strong>Lembrar também no dia</strong>
+      <span>Além do aviso com antecedência, um lembrete no aniversário.</span>
+    </div>
+    <label class="interruptor">
+      <input type="checkbox" name="tambem_no_dia" {% if prefs.tambem_no_dia %}checked{% endif %}>
+      <span class="trilho"></span>
+    </label>
+  </div>
+
+  <div class="resumo" style="margin-top: 16px;">
+    <img src="{{ url_for('static', filename='img/lembretes/clock.svg') }}" alt="">
+    <div>
+      {% if exemplo %}
+      <strong>O aniversário de {{ exemplo.nome }} é {{ exemplo.prazo }}. Que tal preparar um carinho?</strong>
+      {% else %}
+      <strong>Cadastre um aniversário para ver a prévia por aqui.</strong>
+      {% endif %}
+    </div>
+  </div>
+
+  <p>
+    <button class="btn" type="submit">Salvar preferências</button>
+  </p>
+</form>
+{% endblock %}

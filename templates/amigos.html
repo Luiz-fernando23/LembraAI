@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titulo %}Amigos — LembraAI{% endblock %}
+{% block conteudo %}
+<h1 class="titulo-grande" style="font-size:2.1rem;">Gente querida</h1>
+<p class="sub">{{ total }} amigo{% if total != 1 %}s{% endif %}, muitos motivos para celebrar.</p>
+
+<form class="busca" method="get" action="{{ url_for('amigos') }}" role="search">
+  <img src="{{ url_for('static', filename='img/amigos/search.svg') }}" alt="">
+  <input type="search" name="q" value="{{ busca }}" placeholder="Buscar um amigo" aria-label="Buscar um amigo">
+</form>
+
+{% if grupos %}
+{% for g in grupos %}
+<div class="grupo-mes">
+  <div class="secao-linha">
+    <h2>{{ g.mes }}</h2>
+    <span class="contagem">{{ g.contagem }}</span>
+  </div>
+  {% for a in g.itens %}
+  <a class="item-aniversario" href="{{ url_for('detalhe', bid=a.id) }}">
+    <span class="avatar pequeno" style="background: {{ a.cor }};">{{ a.iniciais }}</span>
+    <span class="cresce">
+      <span class="nome-linha">{{ a.nome }}</span>
+      <p class="detalhe-linha">{{ a.data_curta }} · {{ a.semana }}</p>
+    </span>
+    <span class="prazo">{{ a.prazo }}</span>
+    <img src="{{ url_for('static', filename='img/amigos/chevron-right.svg') }}" alt="" width="15" height="15">
+  </a>
+  {% endfor %}
+</div>
+{% endfor %}
+{% else %}
+<div class="cartao">
+  <p>{% if busca %}Nada por aqui com "{{ busca }}".{% else %}Nenhum amigo ainda. Que tal cadastrar o primeiro?{% endif %}</p>
+</div>
+{% endif %}
+
+<p style="margin-top: 20px;">
+  <a class="btn btn-icone" href="{{ url_for('cadastrar') }}">
+    <img src="{{ url_for('static', filename='img/amigos/plus.svg') }}" alt="">
+    Adicionar aniversário
+  </a>
+</p>
+{% endblock %}

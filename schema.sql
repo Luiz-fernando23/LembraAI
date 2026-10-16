@@ -1,0 +1,37 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT UNIQUE NOT NULL COLLATE NOCASE,
+  password_hash TEXT NOT NULL,
+  name TEXT,
+  avatar_url TEXT,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS birthdays (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  owner_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  nome TEXT NOT NULL,
+  dia INTEGER NOT NULL,
+  mes INTEGER NOT NULL,
+  ano INTEGER NULL,
+  vinculo TEXT,
+  antecedencia TEXT NOT NULL DEFAULT '3 dias antes',
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE TABLE IF NOT EXISTS gift_ideas (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  birthday_id INTEGER NOT NULL REFERENCES birthdays(id) ON DELETE CASCADE,
+  titulo TEXT NOT NULL,
+  anotacao TEXT
+);
+
+CREATE TABLE IF NOT EXISTS preferences (
+  owner_id INTEGER PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+  antecedencia_padrao TEXT NOT NULL DEFAULT '3 dias antes',
+  hora TEXT NOT NULL DEFAULT '09:00',
+  avisar INTEGER NOT NULL DEFAULT 1,
+  tambem_no_dia INTEGER NOT NULL DEFAULT 1
+);

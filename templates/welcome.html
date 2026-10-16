@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %}LembraAI — nunca esqueça um aniversário{% endblock %}
+{% block conteudo %}
+<h1>Boas-vindas ao LembraAI</h1>
+<p>Nunca mais esqueça um aniversário importante.</p>
+<p>
+  <a class="btn" href="{{ url_for('cadastrar') }}">Começar agora</a>
+</p>
+<p>Já tem conta? <a href="{{ url_for('login') }}">Entrar</a></p>
+{% endblock %}

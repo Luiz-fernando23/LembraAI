@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block titulo %}LembraAI — Datas pequenas. Afetos enormes.{% endblock %}
+{% block conteudo %}
+<p class="marca">
+  <img src="{{ url_for('static', filename='img/boas-vindas/marca.svg') }}" alt="">
+  lembra
+</p>
+<img class="ilustracao" src="{{ url_for('static', filename='img/boas-vindas/ilustracao.svg') }}"
+     alt="Bolo de aniversário com velas acesas, presente e cartão" width="362" height="240">
+<p class="kicker">Para quem importa</p>
+<h1 class="titulo-grande">Datas pequenas.<br>Afetos enormes.</h1>
+<p class="sub">Guarde os aniversários de quem você ama. A gente lembra, você faz o dia especial.</p>
+<p class="linha-lembrete">
+  <img src="{{ url_for('static', filename='img/boas-vindas/bell.svg') }}" alt="">
+  Um lembrete antes. Um carinho no dia.
+</p>
+<p>
+  <a class="btn btn-icone" href="{{ url_for('cadastrar') }}">
+    <img src="{{ url_for('static', filename='img/boas-vindas/plus.svg') }}" alt="">
+    Cadastrar meu primeiro aniversário
+  </a>
+</p>
+<p class="rodape-nota">Sem login. Só boas lembranças. <a href="{{ url_for('login') }}">Entrar</a></p>
+{% endblock %}

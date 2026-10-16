@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}LembraAI{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tokens.css') }}">
+</head>
+<body>
+  <div class="app">
+    <main class="conteudo">
+      {% block conteudo %}{% endblock %}
+    </main>
+    {% if session.get('user_id') %}
+    <nav class="bottom-nav" aria-label="Navegação principal">
+      <a href="{{ url_for('inicio') }}" class="{% if ativa == 'inicio' %}ativa{% endif %}">
+        <img src="{{ url_for('static', filename='img/nav/house.svg') }}" alt="" width="22" height="22">
+        <span>Início</span>
+      </a>
+      <a href="{{ url_for('amigos') }}" class="{% if ativa == 'amigos' %}ativa{% endif %}">
+        <img src="{{ url_for('static', filename='img/nav/users.svg') }}" alt="" width="22" height="22">
+        <span>Amigos</span>
+      </a>
+      <a href="{{ url_for('lembretes') }}" class="{% if ativa == 'lembretes' %}ativa{% endif %}">
+        <img src="{{ url_for('static', filename='img/nav/bell.svg') }}" alt="" width="22" height="22">
+        <span>Lembretes</span>
+      </a>
+    </nav>
+    {% endif %}
+  </div>
+</body>
+</html>

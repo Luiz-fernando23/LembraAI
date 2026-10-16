@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block titulo %}Entrar — LembraAI{% endblock %}
+{% block conteudo %}
+<p class="marca">
+  <img src="{{ url_for('static', filename='img/boas-vindas/marca.svg') }}" alt="">
+  lembra
+</p>
+<h1 class="titulo-grande">Que bom ter você de volta.</h1>
+<p class="sub">Entre para cuidar das datas de quem você ama.</p>
+{% if erro %}<div class="erro" role="alert">{{ erro }}</div>{% endif %}
+{% if aviso == "senha" %}
+<div class="aviso-mvp" role="status">Recuperação de senha indisponível no MVP. Fale com quem te convidou para redefinir o acesso.</div>
+{% endif %}
+<form method="post" action="{{ url_for('login') }}">
+  <div class="campo">
+    <label for="email">E-mail</label>
+    <input type="email" id="email" name="email" required autocomplete="email"
+           placeholder="voce@exemplo.com" value="{{ request.form.get('email', '') }}">
+  </div>
+  <div class="campo">
+    <label for="password">Senha</label>
+    <div class="senha-campo">
+      <input type="password" id="password" name="password" required
+             autocomplete="current-password" placeholder="Digite sua senha">
+      <button class="olho" type="button" aria-label="Mostrar senha"
+              onclick="var c=document.getElementById('password');c.type=c.type==='password'?'text':'password';">
+        <img src="{{ url_for('static', filename='img/login/eye.svg') }}" alt="">
+      </button>
+    </div>
+  </div>
+  <p class="esqueceu"><a class="link-coral" href="{{ url_for('login', aviso='senha') }}">Esqueceu sua senha?</a></p>
+  <button class="btn" type="submit">Entrar</button>
+</form>
+<p class="rodape-nota">Ainda não tem conta? <a href="{{ url_for('cadastrar_conta') }}">Criar conta</a></p>
+<div class="resumo" style="margin-top: 28px;">
+  <img src="{{ url_for('static', filename='img/login/bell.svg') }}" alt="">
+  <div>
+    <strong>Um lembrete antes. Um carinho no dia.</strong>
+    <p>As pessoas queridas continuam por aqui.</p>
+  </div>
+</div>
+{% endblock %}

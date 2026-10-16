@@ -1,0 +1,38 @@
+<svg width="362" height="240" viewBox="0 0 362 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bolo de aniversário com velas, presente e cartão">
+<rect width="362" height="240" rx="24" fill="#E7E0F2"/>
+<ellipse cx="181" cy="216" rx="150" ry="16" fill="#DCD2EC"/>
+<rect x="20" y="176" width="322" height="10" rx="5" fill="#F4EFE6"/>
+<!-- cartão -->
+<rect x="262" y="96" width="64" height="84" rx="6" fill="#F6F1E4" stroke="#E3D9C6" stroke-width="2"/>
+<path d="M294 122c-2.6-5.2-10.4-5.6-12.6-.4-2.2-5.2-10-4.8-12.6.4-2 4 1.6 9.4 12.6 16.4 11-7 14.6-12.4 12.6-16.4Z" fill="#C95443"/>
+<!-- vaso + flor -->
+<rect x="238" y="150" width="26" height="32" rx="9" fill="#EFE9DB" stroke="#D8CCB4" stroke-width="2"/>
+<path d="M251 150V118" stroke="#6E7F5C" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="251" cy="110" rx="13" ry="11" fill="#D98A6B"/>
+<circle cx="251" cy="110" r="4.5" fill="#B85C38"/>
+<path d="M251 134c-8 0-13-4-15-10 7 0 13 3 15 10Z" fill="#6E7F5C"/>
+<path d="M251 142c8 0 13-4 15-10-7 0-13 3-15 10Z" fill="#7E8F6A"/>
+<!-- presente -->
+<rect x="36" y="128" width="76" height="54" rx="6" fill="#D9CDEB"/>
+<rect x="36" y="118" width="76" height="18" rx="6" fill="#C9BAE2"/>
+<rect x="68" y="118" width="12" height="64" fill="#C95443"/>
+<rect x="36" y="148" width="76" height="10" fill="#C95443" opacity=".85"/>
+<ellipse cx="74" cy="112" rx="10" ry="7" fill="none" stroke="#C95443" stroke-width="3"/>
+<ellipse cx="74" cy="112" rx="3" ry="2.4" fill="#C95443"/>
+<!-- bolo -->
+<ellipse cx="172" cy="182" rx="52" ry="9" fill="#D9C7B8"/>
+<rect x="150" y="176" width="44" height="8" rx="4" fill="#C9B3A1"/>
+<rect x="124" y="118" width="96" height="60" rx="14" fill="#F6EFDD"/>
+<path d="M124 138c12-8 24 4 36-2s24 4 36-2 12-4 12-4v-4c0-8-6-12-14-12h-56c-8 0-14 4-14 12v16Z" fill="#FFFDF6"/>
+<circle cx="140" cy="128" r="2.4" fill="#C95443" opacity=".7"/>
+<circle cx="162" cy="122" r="2.4" fill="#73618E" opacity=".7"/>
+<circle cx="184" cy="128" r="2.4" fill="#C95443" opacity=".7"/>
+<circle cx="204" cy="122" r="2.4" fill="#6E7F5C" opacity=".7"/>
+<!-- velas -->
+<rect x="150" y="82" width="7" height="38" rx="3.5" fill="#C95443"/>
+<rect x="168" y="74" width="7" height="46" rx="3.5" fill="#73618E"/>
+<rect x="186" y="82" width="7" height="38" rx="3.5" fill="#D98A6B"/>
+<path d="M153.5 74c-3-4.5 0-8 3-11 3 3 6 6.5 3 11-1.5 2.4-4.5 2.4-6 0Z" fill="#F2B134"/>
+<path d="M171.5 66c-3-4.5 0-8 3-11 3 3 6 6.5 3 11-1.5 2.4-4.5 2.4-6 0Z" fill="#F2B134"/>
+<path d="M189.5 74c-3-4.5 0-8 3-11 3 3 6 6.5 3 11-1.5 2.4-4.5 2.4-6 0Z" fill="#F2B134"/>
+</svg>

@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block titulo %}Novo aniversário — LembraAI{% endblock %}
+{% block conteudo %}
+<div class="topo">
+  <a class="voltar" href="{{ url_for('amigos') }}" aria-label="Voltar">
+    <img src="{{ url_for('static', filename='img/cadastrar/arrow-left.svg') }}" alt="">
+  </a>
+  <span class="titulo-topo">Novo aniversário</span>
+  <a class="acao" href="{{ url_for('amigos') }}">Cancelar</a>
+</div>
+
+<h1 class="titulo-grande">Mais alguém<br>para lembrar.</h1>
+<p class="sub">Um nome, uma data e um carinho no futuro.</p>
+
+{% if erro %}
+<p class="erro" role="alert">{{ erro }}</p>
+{% endif %}
+
+<form method="post" action="{{ url_for('cadastrar') }}" id="form-niver">
+  <div class="campo">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" name="nome" value="{{ valores.nome or '' }}" placeholder="Marina Rocha" required autocomplete="off">
+  </div>
+
+  <div class="campo">
+    <label>Dia e mês</label>
+    <div class="linha-2">
+      <div class="campo" style="margin-bottom:0;">
+        <select id="dia" name="dia" aria-label="Dia" required>
+          <option value="">Dia</option>
+          {% for d in range(1, 32) %}
+          <option value="{{ d }}" {% if valores.dia == d|string %}selected{% endif %}>{{ "%02d"|format(d) }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="campo" style="margin-bottom:0;">
+        <select id="mes" name="mes" aria-label="Mês" required>
+          <option value="">Mês</option>
+          {% set meses = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'] %}
+          {% for i in range(1, 13) %}
+          <option value="{{ i }}" {% if valores.mes == i|string %}selected{% endif %}>{{ "%02d"|format(i) }} · {{ meses[i-1] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="campo">
+    <label for="ano">Ano (opcional)</label>
+    <input type="text" id="ano" name="ano" value="{{ valores.ano or '' }}" placeholder="Ex.: 1998" inputmode="numeric" autocomplete="off">
+  </div>
+  <p class="dica">Com ano, também mostramos a idade.</p>
+
+  <div class="campo">
+    <label>Vínculo</label>
+    <div class="chips">
+      {% for v in vinculos %}
+      <label class="chip">
+        <input type="radio" name="vinculo" value="{{ v }}" {% if (valores.vinculo or 'Amizade') == v %}checked{% endif %}>
+        <span>{{ v }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="campo">
+    <label>Quando você quer lembrar?</label>
+    <div class="chips">
+      {% for a in antecedencias %}
+      <label class="chip">
+        <input type="radio" name="antecedencia" value="{{ a }}" {% if (valores.antecedencia or antecedencia_padrao) == a %}checked{% endif %}>
+        <span>{{ a }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="resumo" id="resumo">
+    <img src="{{ url_for('static', filename='img/cadastrar/bell-ring.svg') }}" alt="">
+    <div>
+      <strong id="resumo-datas">Escolha dia e mês para ver o resumo.</strong>
+      <p id="resumo-texto">Vamos avisar {{ antecedencia_padrao }} e também no dia, às {{ hora_padrao }}.</p>
+    </div>
+  </div>
+
+  <p>
+    <button class="btn btn-icone" type="submit">
+      <img src="{{ url_for('static', filename='img/cadastrar/check.svg') }}" alt="">
+      Salvar aniversário
+    </button>
+  </p>
+  <p class="rodape-nota">Esse carinho se repete todo ano.</p>
+</form>
+
+<script>
+(function () {
+  var MESES = ["", "janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+  var ANTES = {"No dia": 0, "1 dia antes": 1, "3 dias antes": 3, "7 dias antes": 7};
+  var HORA = "{{ hora_padrao }}".replace(/^0/, "").replace(":00", "h");
+  var dia = document.getElementById("dia"), mes = document.getElementById("mes");
+  var datas = document.getElementById("resumo-datas"), texto = document.getElementById("resumo-texto");
+  function ant() {
+    var c = document.querySelector('input[name="antecedencia"]:checked');
+    return c ? c.value : "{{ antecedencia_padrao }}";
+  }
+  function fmt(d) { return d.getDate() + " de " + MESES[d.getMonth() + 1]; }
+  function atualiza() {
+    var a = ant();
+    if (!dia.value || !mes.value) {
+      datas.textContent = "Escolha dia e mês para ver o resumo.";
+      texto.textContent = "Vamos avisar " + a + " e também no dia, às " + HORA + ".";
+      return;
+    }
+    var hoje = new Date(); hoje.setHours(0,0,0,0);
+    var niver = new Date(hoje.getFullYear(), mes.value - 1, dia.value);
+    if (niver < hoje) niver = new Date(hoje.getFullYear() + 1, mes.value - 1, dia.value);
+    var n = ANTES[a] || 0, saida;
+    if (n <= 0) { saida = fmt(niver); }
+    else {
+      var av = new Date(niver); av.setDate(av.getDate() - n);
+      saida = (av.getMonth() === niver.getMonth())
+        ? av.getDate() + " e " + niver.getDate() + " de " + MESES[niver.getMonth() + 1]
+        : fmt(av) + " e " + fmt(niver);
+    }
+    datas.textContent = saida + ", às " + HORA;
+    texto.textContent = (n <= 0 ? "Vamos avisar no dia." : "Vamos avisar " + a + " e também no dia.");
+  }
+  dia.addEventListener("change", atualiza);
+  mes.addEventListener("change", atualiza);
+  document.querySelectorAll('input[name="antecedencia"]').forEach(function (c) {
+    c.addEventListener("change", atualiza);
+  });
+  atualiza();
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block titulo %}Início — LembraAI{% endblock %}
+{% block conteudo %}
+<div class="cabecalho-inicio">
+  <div>
+    <p class="data-hoje">{{ hoje }}</p>
+    <h1 class="saudacao">Olá, {{ nome }}!</h1>
+  </div>
+  <a class="sino-topo" href="{{ url_for('lembretes') }}" aria-label="Lembretes">
+    <img src="{{ url_for('static', filename='img/inicio/bell.svg') }}" alt="">
+  </a>
+</div>
+
+{% if proximo %}
+<div class="cartao-lavanda">
+  <p class="rotulo">O próximo abraço
+    <img src="{{ url_for('static', filename='img/inicio/sparkles.svg') }}" alt="">
+  </p>
+  <div class="perfil-linha">
+    <span class="avatar" style="background: {{ proximo.cor }};">{{ proximo.iniciais }}</span>
+    <div>
+      <p class="nome-destaque">{{ proximo.nome }}</p>
+      <p class="detalhe-linha">{{ proximo.data_texto }}{% if proximo.idade is not none %} · vai fazer {{ proximo.idade }}{% endif %}</p>
+    </div>
+  </div>
+  <p class="dias-grande"><span class="dias-numero">{{ proximo.dias_ate }}</span>
+    <small>{% if proximo.dias_ate == 1 %}dia para celebrar{% else %}dias para celebrar{% endif %}</small></p>
+  <p class="aviso-linha">
+    <img src="{{ url_for('static', filename='img/inicio/clock.svg') }}" alt="">
+    {{ lembrete_linha }}
+  </p>
+  <a class="btn-claro btn-icone" href="{{ url_for('detalhe', bid=proximo.id) }}">
+    Preparar um carinho
+    <img src="{{ url_for('static', filename='img/inicio/arrow.svg') }}" alt="">
+  </a>
+</div>
+
+{% if mes_lista %}
+<div class="secao-linha">
+  <h2>Ainda em {{ mes_nome }}</h2>
+  <a class="link-coral" href="{{ url_for('amigos') }}">Ver todos</a>
+</div>
+{% for a in mes_lista %}
+<a class="item-aniversario" href="{{ url_for('detalhe', bid=a.id) }}">
+  <span class="avatar pequeno" style="background: {{ a.cor }};">{{ a.iniciais }}</span>
+  <span class="cresce">
+    <span class="nome-linha">{{ a.nome }}</span>
+    <p class="detalhe-linha">{{ a.data_curta }} · {{ a.semana }}</p>
+  </span>
+  <span class="prazo">{{ a.prazo }}</span>
+  <span class="seta" aria-hidden="true">›</span>
+</a>
+{% endfor %}
+{% endif %}
+{% else %}
+<div class="cartao">
+  <p>Nenhum aniversário por aqui ainda. Cadastre o primeiro e a gente lembra por você.</p>
+</div>
+{% endif %}
+
+<p style="margin-top: 20px;">
+  <a class="btn btn-icone" href="{{ url_for('cadastrar') }}">
+    <img src="{{ url_for('static', filename='img/inicio/plus.svg') }}" alt="">
+    Adicionar aniversário
+  </a>
+</p>
+<p class="rodape-nota">{{ total_texto }}</p>
+{% endblock %}

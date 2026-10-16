@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block titulo %}{{ b.nome }} — LembraAI{% endblock %}
+{% block conteudo %}
+<div class="topo">
+  <a class="voltar" href="{{ url_for('amigos') }}" aria-label="Voltar para amigos">
+    <img src="{{ url_for('static', filename='img/detalhe/arrow-left.svg') }}" alt="">
+  </a>
+  <span class="titulo-topo">Gente querida</span>
+  <span class="acao" aria-hidden="true"></span>
+</div>
+
+<div class="centro" style="margin-bottom: 18px;">
+  <span class="avatar grande" style="background: {{ b.cor }};">{{ b.iniciais }}</span>
+  <h1 class="titulo-grande" style="margin-top: 10px;">{{ b.nome }}</h1>
+  <span class="tag-vinculo">
+    <img src="{{ url_for('static', filename='img/detalhe/heart.svg') }}" alt="">
+    {{ b.vinculo }}
+  </span>
+</div>
+
+<div class="cartao-lavanda cartao-data">
+  <div class="secao-linha">
+    <p class="data-grande">{{ b.data_texto }}</p>
+    <img src="{{ url_for('static', filename='img/detalhe/cake.svg') }}" alt="" width="30" height="30">
+  </div>
+  <p class="detalhe-linha" style="color: var(--lavanda-texto);">
+    {% if b.ano %}Nasceu em {{ b.ano }} · {{ b.semana_neste_ano }} neste ano{% else %}Sem ano cadastrado{% endif %}
+  </p>
+  <div class="linha-idade">
+    <span>{% if b.idade is not none %}Vai fazer {{ b.idade }} anos{% else %}Idade não informada{% endif %}</span>
+    <strong>Faltam {{ b.dias_ate }} dia{% if b.dias_ate != 1 %}s{% endif %}</strong>
+  </div>
+</div>
+
+<div class="cartao-linha">
+  <img class="icone" src="{{ url_for('static', filename='img/detalhe/bell-ring.svg') }}" alt="">
+  <div class="texto">
+    <strong>{{ b.antecedencia }} e no dia</strong>
+    <span>{{ resumo }}</span>
+  </div>
+  <a class="link-coral" href="{{ url_for('lembretes') }}">Ajustar</a>
+</div>
+
+<div class="secao-linha" style="margin-top: 8px;">
+  <h2>Ideias de presente</h2>
+  <span class="link-coral">{{ ideias|length }} ideia{% if ideias|length != 1 %}s{% endif %}</span>
+</div>
+<p class="sub">Pequenas pistas para acertar no carinho.</p>
+
+{% for ideia in ideias %}
+<div class="ideia">
+  <span class="mini">
+    <img src="{{ url_for('static', filename='img/detalhe/book.svg') }}" alt="">
+  </span>
+  <div>
+    <strong>{{ ideia.titulo }}</strong>
+    {% if ideia.anotacao %}<p>{{ ideia.anotacao }}</p>{% endif %}
+  </div>
+</div>
+{% endfor %}
+
+{% if erro_ideia %}
+<p class="erro" role="alert">{{ erro_ideia }}</p>
+{% endif %}
+<form method="post" action="{{ url_for('detalhe', bid=b.id) }}">
+  <div class="campo">
+    <label for="titulo">Nova ideia</label>
+    <input type="text" id="titulo" name="titulo" placeholder="Ex.: Café da manhã juntas" required>
+  </div>
+  <div class="campo">
+    <label for="anotacao">Anotação (opcional)</label>
+    <input type="text" id="anotacao" name="anotacao" placeholder="Na padaria da esquina, sem pressa.">
+  </div>
+  <p>
+    <button class="btn-claro rosado btn-icone" type="submit">
+      <img src="{{ url_for('static', filename='img/detalhe/plus.svg') }}" alt="" style="width:20px;height:20px;">
+      Adicionar ideia
+    </button>
+  </p>
+</form>
+{% endblock %}
