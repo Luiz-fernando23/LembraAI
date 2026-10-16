@@ -5,7 +5,7 @@
 ![SQLite](https://img.shields.io/badge/SQLite-3-lightgrey)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
 
-App de lembretes de aniversários: guarde as datas de quem você ama — o LembraAI lembra, você faz o dia especial. Interface mobile fiel ao [protótipo no Figma](#telas), com conta por e-mail, agenda por mês, ideias de presente e preferências de lembrete.
+App de lembretes de aniversários: guarde as datas de quem você ama — o LembraAI lembra, você faz o dia especial. Interface mobile, com conta por e-mail, agenda por mês, ideias de presente e preferências de lembrete.
 
 ## Telas
 
